@@ -1,0 +1,19 @@
+{
+  "name": "snapchat-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zachlatta/snapchat-workshop"
+  },
+  "author": "Zach Latta <zach@zachlatta.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zachlatta/snapchat-workshop/issues"
+  },
+  "homepage": "https://github.com/zachlatta/snapchat-workshop"
+}
