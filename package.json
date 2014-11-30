@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/zachlatta/snapchat-workshop/issues"
   },
-  "homepage": "https://github.com/zachlatta/snapchat-workshop"
+  "homepage": "https://github.com/zachlatta/snapchat-workshop",
+  "dependencies": {
+    "express": "^4.10.4"
+  }
 }
