@@ -18,6 +18,6 @@
   "homepage": "https://github.com/zachlatta/snapchat-workshop",
   "dependencies": {
     "express": "^4.10.4",
-    "snapchat": "^1.0.6"
+    "snapchat": "git://github.com/nykac/node-snapchat"
   }
 }
