@@ -16,6 +16,7 @@ function createDirIfNotExists(name) {
 
 function downloadUnreadSnaps(client, snaps) {
   var update = {}; // update we'll send to snapchat after downloading all snaps
+  var downloadedSnaps = [];
 
   snaps.forEach(function (snap) {
     if (typeof snap.sn !== 'undefined' && typeof snap.t !== 'undefined' &&
@@ -29,7 +30,7 @@ function downloadUnreadSnaps(client, snaps) {
           encoding: null,
           mode: 0666
         });
-      client.getBlob(snap.id).then(function(blob) {
+      client.getBlob(snap.id).then(function (blob) {
         blob.pipe(stream);
         blob.resume();
       });
@@ -41,11 +42,43 @@ function downloadUnreadSnaps(client, snaps) {
         t: (new Date).getTime(), // set timestamp to the epoch
         replayed: 0 // we have not replayed the snap
       };
+
+      downloadedSnaps.push(snap);
     }
   });
 
   // send our update to snapchat, marking all snaps we just downloaded as read
   client.sync(update);
+
+  return downloadedSnaps;
+}
+
+function replyToSnaps(client, snaps) {
+  // upload response.jpg to snapchat
+  var blob = fs.createReadStream('response.jpg');
+  client.upload(blob, false)
+    .then(function (mediaId) {
+      // create an array of the senders of all of the downloaded
+      // snaps.
+      //
+      // the .map function iterates over an array, runs a function
+      // on each item in the array, then returns an array of all of
+      // the results of all of the functions.
+      //
+      // examples:
+      //
+      // [5, 4, 3, 2].map(function (n) { return n + 1 })
+      // > returns [6, 5, 4, 3]
+      //
+      // ['a', 'b', 'c'].map(function (l) { return 'hi' })
+      // > returns ['hi', 'hi', 'hi']
+      //
+      var recipients = snaps.map(function (snap) { return snap.sn });
+
+      console.log('Sending response to %s...', recipients.join(', '));
+
+      client.send(mediaId, recipients, 5);
+    });
 }
 
 app.use('/images', express.static(__dirname + '/images'));
@@ -66,10 +99,16 @@ client.login(SNAPCHAT_USERNAME, SNAPCHAT_PASSWORD)
     // run the actions in the passed function every 5 seconds
     setInterval(function () {
       // get the latest updates from snapchat
-      client.sync().then(function (data) {
-        // download the unread snaps from the update
-        downloadUnreadSnaps(client, data.snaps);
-      });
+      client.sync()
+        .then(function (data) {
+          // download the unread snaps from the update
+          var downloadedSnaps = downloadUnreadSnaps(client, data.snaps);
+
+          // if we downloaded any snaps, then respond to them
+          if (downloadedSnaps.length) {
+            replyToSnaps(client, downloadedSnaps);
+          }
+        });
     }, 5000);
 
     // start our webserver on port 1759
