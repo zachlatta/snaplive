@@ -154,8 +154,8 @@ client.login(SNAPCHAT_USERNAME, SNAPCHAT_PASSWORD)
         });
     }, 1000);
 
-    // start our webserver on port 1759
-    var server = http.listen(1759, function () {
+    // start our webserver on port 3000
+    var server = http.listen(3000, function () {
       var host = server.address().address;
       var port = server.address().port;
 
