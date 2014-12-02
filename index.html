@@ -4,14 +4,42 @@
     <title>Snaplive</title>
   </head>
   <body>
-    <p>Snaplive!</p>
+    <style>
+      html, body{
+        height: 100%;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        background: #101B20;
+      }
+      #username{
+        background: rgb(16, 27, 32);
+        position: fixed;
+        color: white;
+        width: 100%;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        top: 5%;
+        text-align: center;
+        opacity: 0.75;
+      }
+      #snap{
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        height: 100%;
+        width: auto;
+      }
+    </style>
+    <h1 id="">Send a snap to "eshs-snaplive"</h1>
+    <h1 id="username"></h1>
     <img id="snap">
     <script src="/socket.io/socket.io.js"></script>
     <script>
 var socket = io();
 var snapImg = document.getElementById('snap');
-
+var snapUser = document.getElementById('username');
 socket.on('snap', function (snap) {
+  snapUser.innerHTML = 'From ' + snap.sn;
   snapImg.setAttribute('src', '/images/' + snap.filename);
 });
     </script>
