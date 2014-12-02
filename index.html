@@ -5,5 +5,15 @@
   </head>
   <body>
     <p>Snaplive!</p>
+    <img id="snap">
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+var socket = io();
+var snapImg = document.getElementById('snap');
+
+socket.on('snap', function (snap) {
+  snapImg.setAttribute('src', '/images/' + snap.filename);
+});
+    </script>
   </body>
 </html>
