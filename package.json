@@ -19,7 +19,7 @@
   "dependencies": {
     "express": "^4.10.4",
     "q": "^1.1.2",
-    "snapchat": "git://github.com/nykac/node-snapchat",
+    "snapchat": "git://github.com/zachlatta/node-snapchat",
     "socket.io": "^1.2.1"
   }
 }
