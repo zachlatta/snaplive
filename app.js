@@ -8,8 +8,8 @@ var snapchat = require("snapchat");
 
 var client = new snapchat.Client();
 
-var SNAPCHAT_USERNAME = 'eshs-snaplive';
-var SNAPCHAT_PASSWORD = 'foobarfoobar1';
+var SNAPCHAT_USERNAME = 'TODO';
+var SNAPCHAT_PASSWORD = 'TODO';
 
 function createDirIfNotExists(name) {
   if (!fs.existsSync(name)) {
