@@ -11,6 +11,8 @@ var client = new snapchat.Client();
 var SNAPCHAT_USERNAME = 'TODO';
 var SNAPCHAT_PASSWORD = 'TODO';
 
+app.use('/images', express.static(__dirname + '/images'));
+
 app.get('/', function (req, res) {
   res.sendFile('index.html', {root: __dirname});
 })
