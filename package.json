@@ -21,5 +21,8 @@
     "q": "^1.1.2",
     "snapchat": "git://github.com/zachlatta/node-snapchat",
     "socket.io": "^1.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.2.1"
   }
 }
